@@ -8,6 +8,9 @@ Sistem Database CRUD menggunakan MySql dan PHP untuk Website Training/Bootcamp, 
  4. Admin bisa langsung memiliki hak akses masuk Halaman Daftar user terdaftar
  5. Admin dapat Mengedit / menghapus user terdaftar
  6. Admin dapat mencetak/mendownload Tabel daftar user ke file .PDF
- 7. User yang memilih masuk lewat login memiliki hak masuk kedalam daftar user terdaftar namun tidak terdapat akses Edit/Hapus 
+ 7. User yang memilih masuk lewat login memiliki hak masuk kedalam daftar user terdaftar namun tidak terdapat akses Edit/Hapus
+
+- Elemen Web
+  otw
  
  
