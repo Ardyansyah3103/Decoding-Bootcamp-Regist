@@ -50,8 +50,8 @@
         }
 
         nav a:hover {
-            color: #007bff; /* Warna saat hover */
-            transform: scale(1.1); /* Membesarkan sedikit saat hover */
+            color: #007bff; 
+            transform: scale(1.1); 
         }
 
         nav a::after {
@@ -292,8 +292,8 @@
             <a href="#contact">Contact</a>
         </nav>
         <div class="auth-links">
-            <a href="#">Masuk</a>
-            <a href="#">Daftar</a>
+            <a href="login_page.php">Masuk</a>
+            <a href="register_page.php">Daftar</a>
         </div>
     </header>
 

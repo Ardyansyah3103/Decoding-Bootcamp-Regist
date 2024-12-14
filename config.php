@@ -2,8 +2,8 @@
 
 $server = "localhost";
 $user = "root";
-$password = "ardy_utsman31#";
-$nama_database = "pendaftaran_peserta";
+$password = "";
+$nama_database = "decoding";
 
 
 $db = mysqli_connect($server, $user, $password, $nama_database);
