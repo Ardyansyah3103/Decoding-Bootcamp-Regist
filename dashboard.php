@@ -1,10 +1,23 @@
+<?php
+session_start();
+
+// Pastikan user sudah login
+if (!isset($_SESSION['id'])) {
+    header("Location: formLogin.php");
+    exit();
+}
+
+// Cek level user
+$level = $_SESSION['level'];
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Peserta Bootcamp</title>
+    <title>Dashboard</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
@@ -76,6 +89,16 @@
             transition: background-color 0.3s ease;
         }
 
+        .sidebar ul li .logout-but {
+            text-decoration: none;
+            color: black;
+            font-size: 16px;
+            padding: 10px 15px;
+            display: block;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
         .sidebar ul li a:hover {
             background-color: #3ba7ff;
         }
@@ -83,6 +106,12 @@
         .sidebar ul li a.active {
             background-color: #3ba7ff;
         }
+
+        .sidebar ul li .logout-but:hover {
+            background-color:rgb(223, 75, 75);
+            color: white;
+        }
+
 
         .content {
             flex: 1;
@@ -200,21 +229,58 @@
         }
     </style>
 </head>
-
 <body>
+<?php if ($level === '1'): ?> 
+    <!-- Tampilan khusus admin -->
     <div class="sidebar">
         <h1><img src="images/logo.png" alt="Logo"> DeCoding</h1>
         <ul>
-            <li><a href="#" class="active">Dashboard</a></li>
-            <li><a href="#">Pendaftaran</a></li>
-            <li><a href="#">List Peserta</a></li>
+            <li><a href="dashboard.php" class="active">Dashboard</a></li>
+            <li><a href="list_peserta.php">List Peserta</a></li>
+            <li><a href="formLogin.php" class="logout-but">Logout</a></li>
         </ul>
     </div>
 
     <div class="content">
         <div class="dashboard-header">
             <div>
-                <h1>Peserta</h1>
+                <h1>Selamat datang, <?php echo $_SESSION['nama']; ?></h1>
+                <p>Dashboard</p>
+            </div>
+        </div>
+
+        <div class="actions">
+            <a href="list_peserta.php" class="action-item">
+                <img src="images/listpeserta.png" alt="List Peserta" class="action-img">
+                <div class="action-text">
+                    <p class="action-title">List Peserta</p>
+                    <p class="action-description">Lihat daftar peserta saat ini</p>
+                </div>
+            </a>
+            <a href="#" class="action-item">
+                <img src="images/course.png" alt="Course" class="action-img">
+                <div class="action-text">
+                    <p class="action-title">Course</p>
+                    <p class="action-description">Pilih course yang tersedia</p>
+                </div>
+            </a>
+        </div>
+
+<?php elseif ($level === '2'): ?>
+    <!-- Tampilan khusus user biasa -->
+    <div class="sidebar">
+        <h1><img src="images/logo.png" alt="Logo"> DeCoding</h1>
+        <ul>
+            <li><a href="dashboard.php" class="active">Dashboard</a></li>
+            <li><a href="form_pendaftaran.php">Pendaftaran</a></li>
+            <li><a href="formLogin.php" class="logout-but">Logout</a></li>
+        </ul>
+    </div>
+
+    <div class="content">
+        <div class="dashboard-header">
+            <div>
+                <h1>Selamat datang, <?php echo $_SESSION['nama']; ?></h1>
                 <p>Dashboard</p>
             </div>
         </div>
@@ -227,14 +293,7 @@
                     <p class="action-description">Mulai registrasi untuk bootcamp</p>
                 </div>
             </a>
-            <a href="list_peserta.php" class="action-item">
-                <img src="images/listpeserta.png" alt="List Peserta" class="action-img">
-                <div class="action-text">
-                    <p class="action-title">List Peserta</p>
-                    <p class="action-description">Lihat daftar peserta saat ini</p>
-                </div>
-            </a>
-            <a href="" class="action-item">
+            <a href="#" class="action-item">
                 <img src="images/course.png" alt="Course" class="action-img">
                 <div class="action-text">
                     <p class="action-title">Course</p>
@@ -242,8 +301,13 @@
                 </div>
             </a>
         </div>
+<?php else: ?>
+    <!-- Default jika level tidak dikenali -->
+    <p>Akses tidak valid.</p>
+<?php endif; ?>
 
-        <div class="cards-container">
+<!-- bagian content tamplate -->
+<div class="cards-container">
             <div class="card">
                 <div class="card-content">
                     <h2>Web Development</h2>
@@ -315,8 +379,5 @@
                 </div>
                 <button>View Details</button>
             </div>
-        </div>
-    </div>
 </body>
-
 </html>

@@ -1,3 +1,5 @@
+<?php include("config.php"); ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -75,12 +77,27 @@
             transition: background-color 0.3s ease;
         }
 
+        .sidebar ul li .logout-but {
+            text-decoration: none;
+            color: black;
+            font-size: 16px;
+            padding: 10px 15px;
+            display: block;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
         .sidebar ul li a:hover {
             background-color: #3ba7ff;
         }
 
         .sidebar ul li a.active {
             background-color: #3ba7ff;
+        }
+
+        .sidebar ul li .logout-but:hover {
+            background-color:rgb(223, 75, 75);
+            color: white;
         }
 
         .content {
@@ -123,17 +140,18 @@
             border-radius: 5px;
         }
 
-        .content .search-bar button {
+        .content .search-bar a {
             padding: 10px 20px;
             background-color: #007bff;
             color: white;
             border: none;
             border-radius: 5px;
-            cursor: pointer;
+            text-decoration: none;
         }
 
-        .content .search-bar button:hover {
-            background-color: #0056b3;
+        .content .search-bar a:hover {
+            background-color:rgb(6, 86, 172);
+            color: white;
         }
 
         .content table {
@@ -185,7 +203,7 @@
         .content img {
             width: 60px;
             height: 60px;
-            border-radius: 50%;
+            border-radius: 40%;
             object-fit: cover;
         }
     </style>
@@ -194,69 +212,68 @@
     <div class="sidebar">
         <h1><img src="Images/logo.png" alt="Logo"> DeCoding</h1>
         <ul>
-            <li><a href="#" class="active">Dashboard</a></li>
-            <li><a href="#">Pendaftaran</a></li>
-            <li><a href="#">List Peserta</a></li>
+            <li><a href="dashboard.php" >Dashboard</a></li>
+            <li><a href="list_peserta.php" class="active" >List Peserta</a></li>
+            <li><a href="formLogin.php" class="logout-but">Logout</a></li>
         </ul>
     </div>
     <div class="content">
         <div class="dashboard-header">
             <div>
-                <h1>Admin</h1>
-                <p>Dashboard</p>
+                <h1>Selamat datang, Admin</h1>
+                <p>Dashboard Admin</p>
             </div>
         </div>
         <h2>Peserta Bootcamp</h2>
         <div class="search-bar">
             <input type="text" placeholder="Search">
-            <button>Download</button>
+            <a href="fpdf.php">Download PDF</a>
         </div>
         <table>
             <thead>
                 <tr>
-                    <th>Nama</th>
+                    <th>No</th>
                     <th>Foto</th>
+                    <th>Nama</th>
                     <th>No. Telepon</th>
                     <th>Email</th>
                     <th>Bootcamp</th>
-                    <th>Status</th>
+                    <th>Tindakan</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Jane Cooper</td>
-                    <td><img src="Images/jane.jpg" alt="Jane"></td>
-                    <td>(225) 555-0118</td>
-                    <td>jane@microsoft.com</td>
-                    <td>Web Development</td>
-                    <td class="actions"><button class="edit">Edit</button> <button class="delete">Hapus</button></td>
-                </tr>
-                <tr>
-                    <td>Floyd Miles</td>
-                    <td><img src="Images/Floyd.jpg" alt="Floyd"></td>
-                    <td>(205) 555-0100</td>
-                    <td>floyd@yahoo.com</td>
-                    <td>Mobile App Development</td>
-                    <td class="actions"><button class="edit">Edit</button> <button class="delete">Hapus</button></td>
-                </tr>
-                <tr>
-                    <td>Ronald Richards</td>
-                    <td><img src="Images/Ronald.jpg" alt="Ronald"></td>
-                    <td>(302) 555-0107</td>
-                    <td>ronald@adobe.com</td>
-                    <td>UI/UX Design</td>
-                    <td class="actions"><button class="edit">Edit</button> <button class="delete">Hapus</button></td>
-                </tr>
-                <tr>
-                    <td>Marvin McKinney</td>
-                    <td><img src="Images/Marvin.jpg" alt="Marvin"></td>
-                    <td>(252) 555-0126</td>
-                    <td>marvin@tesla.com</td>
-                    <td>Data Science & Analytics</td>
-                    <td class="actions"><button class="edit">Edit</button> <button class="delete">Hapus</button></td>
-                </tr>
+            <?php
+                $sql = "SELECT * FROM calon_peserta_bc";
+                $query = mysqli_query($koneksi, $sql);
+
+                // Variabel untuk nomor urut
+                $nomor = 1;
+
+                while ($peserta = mysqli_fetch_array($query)) {
+                    echo "<tr>";
+                    echo "<td>".$nomor++."</td>"; // Penomoran manual
+                    echo "<td>";
+                    if (file_exists("uploads/".$peserta['foto'])) {
+                        echo "<img src='uploads/".$peserta['foto']."' width='100' height='100'>";
+                    } else {
+                        echo "File tidak ditemukan: uploads/".$peserta['foto'];
+                    }
+                    echo "</td>";
+
+                    echo "<td>".$peserta['nama']."</td>";
+                    echo "<td>".$peserta['email']."</td>";
+                    echo "<td>".$peserta['no_telepon']."</td>";
+                    echo "<td>".$peserta['bootcamp']."</td>";
+                    echo "<td>";
+                    echo "<a href='edit_form_pendaftaran.php?id=".$peserta['id']."'class='btn btn-warning btn-sm' style='display: inline-block; padding: 10px 20px; text-align: center; border-radius: 5px; text-decoration: none; font-weight: bold; background-color: #ffc107; color: white; transition: background-color 0.3s;'>Edit</a> ";
+                    echo " | ";
+                    echo "<a href='hapus.php?id=".$peserta['id']."'class='btn btn-danger btn-sm' style='display: inline-block; padding: 10px 20px; text-align: center; border-radius: 5px; text-decoration: none; font-weight: bold; background-color: #dc3545; color: white; transition: background-color 0.3s;'>Hapus</a>";
+                    echo "</tr>";
+                }
+                ?>
             </tbody>
         </table>
     </div>
 </body>
 </html>
+

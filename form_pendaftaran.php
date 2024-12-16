@@ -128,33 +128,33 @@
                 <img src="Images/logo.png" alt="Logo">
                 <h1>FORM PENDAFTARAN PESERTA BOOTCAMP</h1>
             </div>
-            <form>
+            <form action="prosesDaftar.php" method="post" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="fullName">Nama Lengkap :</label>
-                    <input type="text" id="fullName" name="fullName" placeholder="Nama lengkap ...">
+                    <input type="text" id="nama" name="nama" placeholder="Nama lengkap ..." required>
                 </div>
                 <div class="form-group">
                     <label for="email">Email :</label>
-                    <input type="email" id="email" name="email" placeholder="info@xyz.com">
+                    <input type="email" id="email" name="email" placeholder="info@xyz.com" required>
                 </div>
                 <div class="form-group">
                     <label for="phone">No. Telp :</label>
-                    <input type="tel" id="phone" name="phone" placeholder="+62xxxxxxxxxx">
+                    <input type="tel" id="no_telepon" name="no_telepon" placeholder="+62xxxxxxxxxx" required>
                 </div>
                 <div class="form-group">
                     <label for="bootcamp">Bootcamp :</label>
                     <select id="bootcamp" name="bootcamp">
                         <option value="" disabled selected>Select</option>
-                        <option value="web-development">Web Development</option>
-                        <option value="data-science">Data Science</option>
-                        <option value="ui-ux-design">UI/UX Design</option>
+                        <option value="Web Development">Web Development</option>
+                        <option value="Data Science">Data Science</option>
+                        <option value="UI/UX Design">UI/UX Design</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="photo">Foto :</label>
-                    <input type="file" id="photo" name="photo">
+                    <input type="file" id="foto" name="foto">
                 </div>
-                <button type="submit">Daftar</button>
+                <button type="submit" name="Daftar">Daftar</button>
             </form>
         </div>
         <div class="image-container">

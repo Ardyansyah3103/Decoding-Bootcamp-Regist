@@ -1,3 +1,27 @@
+<?php
+include("config.php");
+
+// Jika tidak ada id di query string
+if( !isset($_GET['id']) ){
+    header('Location: list_peserta.php');
+}
+
+// Ambil id dari query string
+$id = $_GET['id'];
+
+// Buat query untuk ambil data dari database
+$sql = "SELECT * FROM calon_peserta_bc WHERE id=$id";
+$query = mysqli_query($koneksi, $sql);
+$peserta = mysqli_fetch_assoc($query);
+
+// Jika data yang di-edit tidak ditemukan
+if( mysqli_num_rows($query) < 1 ){
+    die("data tidak ditemukan...");
+}
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -121,34 +145,36 @@
                 <img src="Images/logo.png" alt="Logo">
                 <h1>FORM EDIT PENDAFTARAN PESERTA BOOTCAMP</h1>
             </div>
-            <form>
-                <div class="form-group">
-                    <label for="fullName">Full Name :</label>
-                    <input type="text" id="fullName" name="fullName" placeholder="Enter your name..">
-                </div>
-                <div class="form-group">
-                    <label for="email">Email Id :</label>
-                    <input type="email" id="email" name="email" placeholder="info@xyz.com">
-                </div>
-                <div class="form-group">
-                    <label for="phone">No. Telp :</label>
-                    <input type="tel" id="phone" name="phone" placeholder="+62xxxxxxxxxx">
-                </div>
-                <div class="form-group">
-                    <label for="bootcamp">Bootcamp :</label>
-                    <select id="bootcamp" name="bootcamp">
-                        <option value="" disabled selected>Select</option>
-                        <option value="web-development">Web Development</option>
-                        <option value="data-science">Data Science</option>
-                        <option value="ui-ux-design">UI/UX Design</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="photo">Foto :</label>
-                    <input type="file" id="photo" name="photo">
-                </div>
-                <button type="submit">Save</button>
-            </form>
+        <form action="prosesEdit.php" method="post" enctype="multipart/form-data">
+            <input type="hidden" id="id" name="id" value="<?php echo $id; ?>">
+            <div class="form-group">
+                <label for="nama">Full Name :</label>
+                <input type="text" id="nama" name="nama" placeholder="Enter your full name.." required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email Id :</label>
+                <input type="email" id="email" name="email" placeholder="info@xyz.com" required>
+            </div>
+            <div class="form-group">
+                <label for="no_telepon">No. Telp :</label>
+                <input type="tel" id="no_telepon" name="no_telepon" placeholder="+62xxxxxxxxxx" required>
+            </div>
+            <div class="form-group">
+                <label for="bootcamp">Bootcamp :</label>
+                <select id="bootcamp" name="bootcamp" required>
+                    <option value="" disabled selected>Select</option>
+                    <option value="Web Development">Web Development</option>
+                    <option value="Data Science">Data Science</option>
+                    <option value="UI/UX Designer">UI/UX Design</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="foto">Foto :</label>
+                <input type="file" id="foto" name="foto">
+            </div>
+            <button type="submit" name="simpan">simpan</button>
+        </form>
+
         </div>
         <div class="image-container">
             <img src="Images/kanan.png" alt="Illustration">

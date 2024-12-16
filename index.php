@@ -50,8 +50,8 @@
         }
 
         nav a:hover {
-            color: #007bff; 
-            transform: scale(1.1); 
+            color: #007bff; /* Warna saat hover */
+            transform: scale(1.1); /* Membesarkan sedikit saat hover */
         }
 
         nav a::after {
@@ -110,14 +110,14 @@
             margin-bottom: 30px;
         }
 
-        .hero button {
+        .hero a {
             background-color: #007bff;
             color: #fff;
             padding: 15px 30px;
             border: none;
             border-radius: 5px;
             font-size: 16px;
-            cursor: pointer;
+            text-decoration: none;
         }
 
         .hero img {
@@ -292,8 +292,8 @@
             <a href="#contact">Contact</a>
         </nav>
         <div class="auth-links">
-            <a href="login_page.php">Masuk</a>
-            <a href="register_page.php">Daftar</a>
+            <a href="formLogin.php">Masuk</a>
+            <a href="formLogin.php">Daftar</a>
         </div>
     </header>
 
@@ -301,7 +301,7 @@
         <div class="hero-text">
             <h1>Unlock Your Coding <span>Potential!</span></h1>
             <p>Mulai langkahmu dan asah keterampilan coding-mu bersama DeCoding!</p>
-            <button>Sekarang juga!</button>
+            <a href="formLogin.php">Daftar Sekarang!</a>
         </div>
         <img src="images/illustration.png" alt="Hero image" />
     </section>
