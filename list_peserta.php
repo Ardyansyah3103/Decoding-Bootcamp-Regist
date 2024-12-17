@@ -221,7 +221,7 @@
         <div class="dashboard-header">
             <div>
                 <h1>Selamat datang, Admin</h1>
-                <p>Dashboard Admin</p>
+                <p>Dashboard</p>
             </div>
         </div>
         <h2>Peserta Bootcamp</h2>

@@ -2,7 +2,7 @@
 
 $server = "localhost";
 $user = "root";
-$password = "ardy_utsman31#";
+$password = "";
 $nama_database = "pendaftaran_peserta";
 
 
